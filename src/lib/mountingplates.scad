@@ -150,7 +150,7 @@ module printtopboard() {
         topboard();
         translate([boardx/2,boardy/2,0])
             mountingholesinserts();
-        translate([boardx/2,boardy/2,boardz-3+1.5])
+        translate([boardx/2,boardy/2,boardz-2+1.5])
             cube([40,60,2], center=true);
     }
 }
