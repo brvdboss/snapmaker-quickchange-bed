@@ -1,5 +1,5 @@
 dia=4;
-thick=1;
+thick=6;
 
 $fn=60;
 
@@ -9,7 +9,7 @@ $fn=60;
 difference(){
     union() {
         triangleA(t=thick,d=dia);
-        //translate([0,0,thick]) triangleA(t=3,d=15);
+        translate([0,0,thick]) triangleA(t=3,d=15);
     }
     translate([15.25-4,11-2+3.5,0]) cylinder(h=thick*2,d=10);
     translate([2.5,18.5,0]) cylinder(h=thick*2,d=8);
