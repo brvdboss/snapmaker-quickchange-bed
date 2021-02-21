@@ -3,14 +3,20 @@
 $fn=64;
 
 //parameters for inserts
-insertflangeh=1+1; //1mm + 1mm "space"
-insertflanged=8;
-insertthreadd=5.5;
+flangeh=1+1; //1mm + 1mm "space"
+flanged=8;
+threadd=5;
 
 //parameters for mountinghole
 mountflangeh=5;
 mountflanged=8;
 mountholed=4.5;
+
+//parameters for inserts
+insertflange=10;
+insertflanged=3;
+insertholed=5.5;
+
 
 //insertcounts
 insertcx=11;
@@ -47,8 +53,6 @@ cbd=8.2;//M8
 //translate([boardx/2,boardy/2,boardz+2]) scale([3.5,3.5,1]) import(file = "carriage.svg", center = true);
 //printtopboard();
 //customwasteboardmagnetsonly();
-
-//customwasteboardlite();
 
 //basic wasteboard with inserts and mounting holes cut out
 module allholewasteboard() {
@@ -119,217 +123,6 @@ module customwasteboard() {
         }*/
         magnetholdergrid();
     }    
-}
-
-
-//bottom plate with cutouts to reduce weight
-module custombaseboardlite() {
-    db=12;
-    db2=25;
-    
-    union(){
-    translate([-150,-160,0]) cylinder(h=boardz, d=db2);
-    translate([-150,0,0]) cylinder(h=boardz, d=db2);
-    translate([-150,160,0]) cylinder(h=boardz, d=db2);
-    translate([0,160,0]) cylinder(h=boardz, d=db2);
-    translate([150,160,0]) cylinder(h=boardz, d=db2);
-    translate([150,0,0]) cylinder(h=boardz, d=db2);
-    translate([150,-160,0]) cylinder(h=boardz, d=db2);
-    translate([0,-160,0]) cylinder(h=boardz, d=db2);
-    
-    //second square, start bottom left, work my way around clockwise
-    translate([-117,-127,0]) cylinder(h=boardz, d=db2);
-    translate([-117,-51,0]) cylinder(h=boardz, d=db2);
-    translate([-117,51,0]) cylinder(h=boardz, d=db2);
-    translate([-117,127,0]) cylinder(h=boardz, d=db2);
-    translate([0,127,0]) cylinder(h=boardz, d=db2);
-    translate([117,127,0]) cylinder(h=boardz, d=db2);
-    translate([117,51,0]) cylinder(h=boardz, d=db2);
-    translate([117,-51,0]) cylinder(h=boardz, d=db2);
-    translate([117,-127,0]) cylinder(h=boardz, d=db2);
-    translate([0,-127,0]) cylinder(h=boardz, d=db2);
-    
-    //inner smallest square
-    translate([-45,-51,0]) cylinder(h=boardz, d=db2);
-    translate([-45,51,0]) cylinder(h=boardz, d=db2);
-    translate([45,51,0]) cylinder(h=boardz, d=db2);
-    translate([45,-51,0]) cylinder(h=boardz, d=db2);
-    
-    //outer square
-    hull() {
-        translate([-150,-160,0]) cylinder(h=boardz, d=db);
-        translate([-150,160,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-150,160,0]) cylinder(h=boardz, d=db);
-        translate([150,160,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([150,160,0]) cylinder(h=boardz, d=db);
-        translate([150,-160,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([150,-160,0]) cylinder(h=boardz, d=db);
-        translate([-150,-160,0]) cylinder(h=boardz, d=db);
-    }
-    //outer diagonals
-    hull() {
-        translate([-150,-160,0]) cylinder(h=boardz, d=db);
-        translate([-117,-127,0]) cylinder(h=boardz, d=db);
-
-    }
-    hull() {
-        translate([150,160,0]) cylinder(h=boardz, d=db);
-        translate([117,127,0]) cylinder(h=boardz, d=db);
-
-    }
-    hull() {
-        translate([150,-160,0]) cylinder(h=boardz, d=db);
-        translate([117,-127,0]) cylinder(h=boardz, d=db);
-        
-    }
-    hull() {
-        translate([-150,160,0]) cylinder(h=boardz, d=db);
-        translate([-117,127,0]) cylinder(h=boardz, d=db);
-    }
-    
-    //middle square
-    hull() {
-        translate([-117,-127,0]) cylinder(h=boardz, d=db);
-        translate([-117,127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-117,127,0]) cylinder(h=boardz, d=db);
-        translate([117,127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([117,127,0]) cylinder(h=boardz, d=db);
-        translate([117,-127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([117,-127,0]) cylinder(h=boardz, d=db);
-        translate([-117,-127,0]) cylinder(h=boardz, d=db);
-    }
-
-    //middle diagonals
-    hull() {
-        translate([-117,-127,0]) cylinder(h=boardz, d=db);
-        translate([-45,-51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([117,-127,0]) cylinder(h=boardz, d=db);
-        translate([45,-51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-117,127,0]) cylinder(h=boardz, d=db);
-        translate([-45,51,0]) cylinder(h=boardz, d=db);
-
-    }
-    hull() {
-        translate([117,127,0]) cylinder(h=boardz, d=db);
-        translate([45,51,0]) cylinder(h=boardz, d=db);
-    }
-    //center diagonals
-    hull() {
-        translate([45,51,0]) cylinder(h=boardz, d=db);
-        translate([-45,-51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-45,51,0]) cylinder(h=boardz, d=db);
-        translate([45,-51,0]) cylinder(h=boardz, d=db);
-    }    
-    // middle rectangle
-    hull() {
-        translate([-117,-51,0]) cylinder(h=boardz, d=db);
-        translate([117,-51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-117,51,0]) cylinder(h=boardz, d=db);
-        translate([117,51,0]) cylinder(h=boardz, d=db);
-    }
-    //middle triangles
-    hull() {
-        translate([-45,51,0]) cylinder(h=boardz, d=db);
-        translate([0,127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([45,51,0]) cylinder(h=boardz, d=db);
-        translate([0,127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-45,-51,0]) cylinder(h=boardz, d=db);
-        translate([0,-127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([45,-51,0]) cylinder(h=boardz, d=db);
-        translate([0,-127,0]) cylinder(h=boardz, d=db);
-    }
-    //straight outer connections
-    hull() {
-        translate([0,-160,0]) cylinder(h=boardz, d=db);
-        translate([0,-127,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([0,160,0]) cylinder(h=boardz, d=db);
-        translate([0,127,0]) cylinder(h=boardz, d=db);
-    }
-    //triangle outer connections
-    hull() {
-        translate([150,0,0]) cylinder(h=boardz, d=db);
-        translate([117,51,0])cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([150,0,0]) cylinder(h=boardz, d=db);
-        translate([117,-51,0])cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-150,0,0]) cylinder(h=boardz, d=db);
-        translate([-117,-51,0])cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-150,0,0]) cylinder(h=boardz, d=db);
-        translate([-117,51,0])cylinder(h=boardz, d=db);
-    }
-    
-    //inner square
-    hull() {
-        translate([-45,-51,0]) cylinder(h=boardz, d=db);
-        translate([-45,51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([-45,51,0]) cylinder(h=boardz, d=db);
-        translate([45,51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([45,51,0]) cylinder(h=boardz, d=db);
-        translate([45,-51,0]) cylinder(h=boardz, d=db);
-    }
-    hull() {
-        translate([45,-51,0]) cylinder(h=boardz, d=db);
-        translate([-45,-51,0]) cylinder(h=boardz, d=db);
-    }
-}
-}
-
-module customwasteboardlite() {
-    intersection() {
-        cube([boardx,boardy,boardz]);
-        difference() {
-            union() {
-                translate([boardx/2,boardy/2,0]) custombaseboardlite();
-                //add extra for the magnetholders
-                //this is copy-paseted from there, beware when changing these values
-                cx=80; //clearance from side x-axis
-                cy=30; //clearance from side y-axis
-                translate([cx,cy,0]) cylinder(h=boardz,d=65);
-                translate([cx,boardy-cy,0]) cylinder(h=boardz,d=65);
-                translate([boardx-cx,boardy-cy,0]) cylinder(h=boardz,d=65);
-                translate([boardx-cx,cy,0]) cylinder(h=boardz,d=65);
-            }
-            translate([boardx/2,boardy/2,0]) mountingholes();
-            magnetholdergrid();
-        }
-    }
 }
 
 
@@ -434,8 +227,8 @@ module mountingholesinserts() {
 //single cutout for insert
 module wasteboardinsert() {
     union() {
-        cylinder(h=insertflangeh,d=insertflanged);
-        cylinder(h=boardz,d=insertthreadd);
+        cylinder(h=flangeh,d=flanged);
+        cylinder(h=boardz,d=threadd);
     }
 }
 
@@ -549,7 +342,7 @@ module magnetholdergrid() {
         translate([boardx-cx,cy,0]) magnetholder();
     }
     //hole to help lift the board using a screwdriver or something similar
-    translate([boardx/2-20,0,boardz-10]) cube([10,55,10]);
+    translate([boardx/2-20,0,boardz-10]) cube([10,80,10]);
     
 }
 
